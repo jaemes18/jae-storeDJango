@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+import dj_database_url
 import os
 
 from pathlib import Path
@@ -19,14 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
+#'django-insecure-o=o2(925djsr!ju(%+k@#0tc%&6v*m)1v%^vwf_4jrqj#woko='
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o=o2(925djsr!ju(%+k@#0tc%&6v*m)1v%^vwf_4jrqj#woko='
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOST', '').split(" ")
 
 
 # Application definition
@@ -85,9 +86,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': 'hyeladb',
+        #'USER': 'hyeladb_user',
+        #'PASSWORD': os.environ.get('DB_PASSWORD_YO'),
+        #'HOST': 'dpg-crdhnvrtq21c73d4qgtg-a.oregon-postgres.render.com',
+        #'PORT': '5432'
+
     }
 }
-
+database_url = os.environ.get('DATABASE_URL')
+DATABASES['default']= dj_database_url.parse(database_url)
+#postgresql://hyeladb_user:gwmFJUM4YPpPkShag09WtBDHL1IjenPM@dpg-crdhnvrtq21c73d4qgtg-a.oregon-postgres.render.com/hyeladb
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
