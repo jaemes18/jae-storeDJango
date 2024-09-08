@@ -11,7 +11,6 @@ services:
           name: hyeladb
           property: connectionString
       - key: SECRET_KEY
-        sync: false
         value: django-insecure-o=o2(925djsr!ju(%+k@#0tc%&6v*m)1v%^vwf_4jrqj#woko=
       - key: ALLOWED_HOSTS
-        value: jae-storedjango.onrender.com
+        value: jae-storedjango.onrender.c
