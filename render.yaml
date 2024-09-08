@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: jae-store
+    env: python
+    buildCommand: "./venv/bin/pip install -r requirements.txt"
+    startCommand: "gunicorn mypro.wsgi:application"
+    autoDeploy: true
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: hyeladb
+          property: connectionString
+      - key: SECRET_KEY
+        sync: false
+        value: django-insecure-o=o2(925djsr!ju(%+k@#0tc%&6v*m)1v%^vwf_4jrqj#woko=
+      - key: ALLOWED_HOSTS
+        value: jae-storedjango.onrender.com
